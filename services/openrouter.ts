@@ -8,17 +8,12 @@ export async function askAI(prompt: string) {
         method: "POST",
 
         headers: {
-          "Content-Type": "application/json",
-
           Authorization: `Bearer ${process.env.NEXT_PUBLIC_OPENROUTER_API_KEY}`,
-
-          "HTTP-Referer": "https://yourstudybuddy-3f8o.vercel.app",
-
-          "X-Title": "StudyBUDDY",
+          "Content-Type": "application/json",
         },
 
         body: JSON.stringify({
-          model: "meta-llama/llama-3-8b-instruct",
+          model: "mistralai/mistral-7b-instruct",
 
           messages: [
             {
@@ -32,19 +27,19 @@ export async function askAI(prompt: string) {
 
     const data = await response.json();
 
-    console.log(data);
+    console.log("OPENROUTER RESPONSE:", data);
 
     if (data.error) {
       return data.error.message;
     }
 
-    return data.choices[0].message.content;
+    return data.choices?.[0]?.message?.content
+      || "No AI response received.";
 
   } catch (error) {
 
     console.error(error);
 
     return "AI is currently unavailable.";
-
   }
 }
