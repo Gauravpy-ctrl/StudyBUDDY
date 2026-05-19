@@ -13,7 +13,7 @@ export async function askAI(prompt: string) {
         },
 
         body: JSON.stringify({
-          model: "mistralai/mistral-7b-instruct",
+          model:"meta-llama/llama-3-8b-instruct",
 
           messages: [
             {
